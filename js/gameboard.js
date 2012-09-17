@@ -4,11 +4,11 @@
 
   GameBoard = (function() {
 
-    GameBoard.prototype.cellSize = 10;
+    GameBoard.prototype.size = null;
 
-    GameBoard.prototype.numRows = 50;
+    GameBoard.prototype.rows = null;
 
-    GameBoard.prototype.numColumns = 50;
+    GameBoard.prototype.cols = null;
 
     GameBoard.prototype.cellStates = null;
 
@@ -16,7 +16,19 @@
 
     GameBoard.prototype.ctx = null;
 
-    function GameBoard() {
+    function GameBoard(rows, cols, size) {
+      if (rows == null) {
+        rows = 50;
+      }
+      if (cols == null) {
+        cols = 50;
+      }
+      if (size == null) {
+        size = 10;
+      }
+      this.rows = rows;
+      this.cols = cols;
+      this.size = size;
       this.buildCanvas();
       this.createGrid();
       this.drawGrid();
@@ -26,37 +38,31 @@
       this.canvas = document.createElement('canvas');
       $(this.canvas).addClass('gameboard');
       document.body.appendChild(this.canvas);
-      this.canvas.height = this.cellSize * this.numRows;
-      this.canvas.width = this.cellSize * this.numColumns;
+      this.canvas.height = this.size * this.rows;
+      this.canvas.width = this.size * this.cols;
       return this.ctx = this.canvas.getContext('2d');
     };
 
     GameBoard.prototype.createGrid = function() {
-      var column, row, _i, _ref, _results;
+      var col, row, _i, _j, _ref, _ref1;
       this.cellStates = [];
-      _results = [];
-      for (row = _i = 0, _ref = this.numRows; 0 <= _ref ? _i < _ref : _i > _ref; row = 0 <= _ref ? ++_i : --_i) {
+      for (row = _i = 0, _ref = this.rows; 0 <= _ref ? _i < _ref : _i > _ref; row = 0 <= _ref ? ++_i : --_i) {
         this.cellStates[row] = [];
-        _results.push((function() {
-          var _j, _ref1, _results1;
-          _results1 = [];
-          for (column = _j = 0, _ref1 = this.numColumns; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; column = 0 <= _ref1 ? ++_j : --_j) {
-            _results1.push(this.cellStates[row][column] = 0);
-          }
-          return _results1;
-        }).call(this));
+        for (col = _j = 0, _ref1 = this.cols; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; col = 0 <= _ref1 ? ++_j : --_j) {
+          this.cellStates[row][col] = 0;
+        }
       }
-      return _results;
+      return this.cellStates;
     };
 
     GameBoard.prototype.drawGrid = function() {
       var col, row, _i, _ref, _results;
       _results = [];
-      for (row = _i = 0, _ref = this.numRows; 0 <= _ref ? _i < _ref : _i > _ref; row = 0 <= _ref ? ++_i : --_i) {
+      for (row = _i = 0, _ref = this.rows; 0 <= _ref ? _i < _ref : _i > _ref; row = 0 <= _ref ? ++_i : --_i) {
         _results.push((function() {
           var _j, _ref1, _results1;
           _results1 = [];
-          for (col = _j = 0, _ref1 = this.numColumns; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; col = 0 <= _ref1 ? ++_j : --_j) {
+          for (col = _j = 0, _ref1 = this.cols; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; col = 0 <= _ref1 ? ++_j : --_j) {
             _results1.push(this.drawCell(row, col));
           }
           return _results1;
@@ -67,17 +73,17 @@
 
     GameBoard.prototype.drawCell = function(row, col) {
       var fillStyle, x, y;
-      x = col * this.cellSize;
-      y = row * this.cellSize;
+      x = col * this.size;
+      y = row * this.size;
       this.ctx.strokeStyle = 'rgba(100, 100, 100, 1.0)';
-      this.ctx.strokeRect(x, y, this.cellSize, this.cellSize);
+      this.ctx.strokeRect(x, y, this.size, this.size);
       if (this.cellStates[row][col] === 0) {
         fillStyle = 'rgb(50, 50, 50)';
       } else {
         fillStyle = 'rgb(200, 100, 0)';
       }
       this.ctx.fillStyle = fillStyle;
-      return this.ctx.fillRect(x, y, this.cellSize, this.cellSize);
+      return this.ctx.fillRect(x, y, this.size, this.size);
     };
 
     GameBoard.prototype.setCellState = function(row, col, val) {
@@ -87,6 +93,30 @@
 
     GameBoard.prototype.getCellState = function(row, col) {
       return this.cellStates[row][col];
+    };
+
+    GameBoard.prototype.getNumRows = function() {
+      return this.rows;
+    };
+
+    GameBoard.prototype.getNumCols = function() {
+      return this.cols;
+    };
+
+    GameBoard.prototype.updateCellStates = function(newCellStates) {
+      var col, row, _i, _ref, _results;
+      _results = [];
+      for (row = _i = 0, _ref = this.rows; 0 <= _ref ? _i < _ref : _i > _ref; row = 0 <= _ref ? ++_i : --_i) {
+        _results.push((function() {
+          var _j, _ref1, _results1;
+          _results1 = [];
+          for (col = _j = 0, _ref1 = this.cols; 0 <= _ref1 ? _j < _ref1 : _j > _ref1; col = 0 <= _ref1 ? ++_j : --_j) {
+            _results1.push(this.setCellState(row, col, newCellStates[row][col]));
+          }
+          return _results1;
+        }).call(this));
+      }
+      return _results;
     };
 
     return GameBoard;

@@ -1,12 +1,15 @@
 class GameBoard
-  cellSize: 10
-  numRows: 50
-  numColumns: 50
+  size: null
+  rows: null
+  cols: null
   cellStates: null
   canvas: null
   ctx: null
 
-  constructor: ->
+  constructor: (rows = 50,cols = 50,size = 10) ->
+    @rows = rows
+    @cols = cols
+    @size = size
     @buildCanvas()
     @createGrid()
     @drawGrid()
@@ -20,8 +23,8 @@ class GameBoard
     document.body.appendChild @canvas
 
     # set width and height according to cellsize
-    @canvas.height = @cellSize * @numRows
-    @canvas.width  = @cellSize * @numColumns
+    @canvas.height = @size * @rows
+    @canvas.width  = @size * @cols
 
     # this is what we draw on
     @ctx = @canvas.getContext '2d'
@@ -30,22 +33,24 @@ class GameBoard
     @cellStates = []
 
     # initialise all cells to 0
-    for row in [0...@numRows]
+    for row in [0...@rows]
       @cellStates[row] = []
-      for column in [0...@numColumns]
-        @cellStates[row][column] = 0
+      for col in [0...@cols]
+        @cellStates[row][col] = 0
+
+    @cellStates
 
   drawGrid: ->
-    for row in [0...@numRows]
-      for col in [0...@numColumns]
+    for row in [0...@rows]
+      for col in [0...@cols]
         @drawCell( row,col )
 
   drawCell: (row,col) ->
-    x = col * @cellSize
-    y = row * @cellSize
+    x = col * @size
+    y = row * @size
 
     @ctx.strokeStyle = 'rgba(100, 100, 100, 1.0)'
-    @ctx.strokeRect x, y, @cellSize, @cellSize
+    @ctx.strokeRect x, y, @size, @size
 
     if @cellStates[row][col] == 0
       fillStyle = 'rgb(50, 50, 50)'
@@ -53,7 +58,7 @@ class GameBoard
       fillStyle = 'rgb(200, 100, 0)'
     
     @ctx.fillStyle = fillStyle
-    @ctx.fillRect x, y, @cellSize, @cellSize
+    @ctx.fillRect x, y, @size, @size
 
   setCellState: (row,col,val) ->
     @cellStates[row][col] = val
@@ -61,6 +66,17 @@ class GameBoard
 
   getCellState: (row,col) ->
     return @cellStates[row][col]
+
+  getNumRows: ->
+    @rows
+  getNumCols: ->
+    @cols
+
+  updateCellStates: (newCellStates) ->
+    for row in [0...@rows]
+      for col in [0...@cols]
+        @setCellState(row,col,newCellStates[row][col])
+
 
 # necessary for outside visibility 
 window.GameBoard = GameBoard
