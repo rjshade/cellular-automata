@@ -53,6 +53,8 @@ html, body {
   clear: both; }
 
 body {
+  color: #efefef;
+  font-size: 100%;
 }
 
 canvas {
