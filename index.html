@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>gameboard.js</title>
+    <title>cellular-automata</title>
     <link rel="stylesheet" type="text/css" media="screen" title="User Defined Style" href="./styles/main.css" />
     <script type="text/javascript" src="./js/jquery-1.8.1.min.js"></script>
     <script type="text/javascript" src="./js/gameboard.js"></script>
@@ -11,11 +11,14 @@
   </head>
   <body>
     <div class='cellular-automata'>
+      <h1>Cellular automata</h1>
+      <p>A demonstration of various cellular automata. An exercise in learning Coffeescript.</p>
+      <p>In order: Conway's Game of Life, Langton's Ant, and Wolfram's 1D cellular automaton (rule 30).</p>
       <div id="debug"></div>
       <script type="text/javascript">
         var dims = { rows: 30, cols: 30, size: 5 }
-        new Langton(dims);
         new Conway(dims);
+        new Langton(dims);
         new Wolfram(dims);
       </script>
     </div>
