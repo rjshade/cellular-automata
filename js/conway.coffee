@@ -2,11 +2,16 @@ class Conway
   board: null
   tickLength: 500
   ant: null
-  rows: 50
-  cols: 50
-  size: 10
-  constructor: ->
-    @board = new GameBoard(@rows,@cols,@size)
+  rows: null
+  cols: null
+
+  constructor: (dims) ->
+    @board = new GameBoard(dims)
+
+    # don't want to be calling every iteration
+    @rows = @board.getNumRows()
+    @cols = @board.getNumCols()
+
     @seed()
     @tick()
 
@@ -77,7 +82,7 @@ class Conway
     if(@cellAlive(row_high, col_high))
       count++
 
-    $('#debug').html('rl: ' + row_low + ' rh: ' + row_high + ' cl: ' + col_low + ' ch: ' + col_high + ' count = ' + count)
+    #$('#debug').html('rl: ' + row_low + ' rh: ' + row_high + ' cl: ' + col_low + ' ch: ' + col_high + ' count = ' + count)
     count
  
 window.Conway = Conway

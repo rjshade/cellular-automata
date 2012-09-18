@@ -11,15 +11,15 @@
 
     Conway.prototype.ant = null;
 
-    Conway.prototype.rows = 50;
+    Conway.prototype.rows = null;
 
-    Conway.prototype.cols = 50;
+    Conway.prototype.cols = null;
 
-    Conway.prototype.size = 10;
-
-    function Conway() {
+    function Conway(dims) {
       this.tick = __bind(this.tick, this);
-      this.board = new GameBoard(this.rows, this.cols, this.size);
+      this.board = new GameBoard(dims);
+      this.rows = this.board.getNumRows();
+      this.cols = this.board.getNumCols();
       this.seed();
       this.tick();
     }
@@ -118,7 +118,6 @@
       if (this.cellAlive(row_high, col_high)) {
         count++;
       }
-      $('#debug').html('rl: ' + row_low + ' rh: ' + row_high + ' cl: ' + col_low + ' ch: ' + col_high + ' count = ' + count);
       return count;
     };
 

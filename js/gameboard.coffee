@@ -6,10 +6,10 @@ class GameBoard
   canvas: null
   ctx: null
 
-  constructor: (rows = 50,cols = 50,size = 10) ->
-    @rows = rows
-    @cols = cols
-    @size = size
+  constructor: (dims = {rows: 20, cols: 20, size: 10}) ->
+    @rows = dims.rows
+    @cols = dims.cols
+    @size = dims.size
     @buildCanvas()
     @createGrid()
     @drawGrid()

@@ -77,10 +77,10 @@
 
     Langton.prototype.ant = null;
 
-    function Langton() {
+    function Langton(dims) {
       this.tick = __bind(this.tick, this);
-      this.board = new GameBoard();
-      this.ant = new Ant(0, 0);
+      this.board = new GameBoard(dims);
+      this.ant = new Ant(Math.floor(dims.rows / 2), Math.floor(dims.cols / 2));
       this.tick();
     }
 

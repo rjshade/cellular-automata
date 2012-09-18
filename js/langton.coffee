@@ -56,9 +56,10 @@ class Langton
   board: null
   tickLength: 100
   ant: null
-  constructor: ->
-    @board = new GameBoard()
-    @ant = new Ant(0,0)
+  constructor: (dims) ->
+    @board = new GameBoard(dims)
+    # create ant in center of board
+    @ant = new Ant(Math.floor(dims.rows/2),Math.floor(dims.cols/2))
     @tick()
 
   tick: =>

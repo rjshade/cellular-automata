@@ -16,19 +16,17 @@
 
     GameBoard.prototype.ctx = null;
 
-    function GameBoard(rows, cols, size) {
-      if (rows == null) {
-        rows = 50;
+    function GameBoard(dims) {
+      if (dims == null) {
+        dims = {
+          rows: 20,
+          cols: 20,
+          size: 10
+        };
       }
-      if (cols == null) {
-        cols = 50;
-      }
-      if (size == null) {
-        size = 10;
-      }
-      this.rows = rows;
-      this.cols = cols;
-      this.size = size;
+      this.rows = dims.rows;
+      this.cols = dims.cols;
+      this.size = dims.size;
       this.buildCanvas();
       this.createGrid();
       this.drawGrid();

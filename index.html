@@ -7,12 +7,16 @@
     <script type="text/javascript" src="./js/gameboard.js"></script>
     <script type="text/javascript" src="./js/langton.js"></script>
     <script type="text/javascript" src="./js/conway.js"></script>
+    <script type="text/javascript" src="./js/wolfram.js"></script>
   </head>
   <body>
     <div class='cellular-automata'>
       <div id="debug"></div>
       <script type="text/javascript">
-        var gameboard = new Conway();
+        var dims = { rows: 30, cols: 30, size: 5 }
+        new Langton(dims);
+        new Conway(dims);
+        new Wolfram(dims);
       </script>
     </div>
   </body>
