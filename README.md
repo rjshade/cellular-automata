@@ -1,4 +1,4 @@
-gameboard.js
-============
+cellular-automata
+=================
 
-Grid for displaying cellular automata. An exercise in learning CoffeeScript.
+Cellular automata - an exercise in learning CoffeeScript.
