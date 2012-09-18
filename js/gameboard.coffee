@@ -20,7 +20,7 @@ class GameBoard
     $(@canvas).addClass('gameboard')
 
     # add it to the DOM
-    document.body.appendChild @canvas
+    $('.cellular-automata').append( @canvas )
 
     # set width and height according to cellsize
     @canvas.height = @size * @rows
@@ -49,13 +49,13 @@ class GameBoard
     x = col * @size
     y = row * @size
 
-    @ctx.strokeStyle = 'rgba(100, 100, 100, 1.0)'
+    @ctx.strokeStyle = 'rgba(50, 50, 50, 0.1)'
     @ctx.strokeRect x, y, @size, @size
 
     if @cellStates[row][col] == 0
-      fillStyle = 'rgb(50, 50, 50)'
+      fillStyle = 'rgb(255, 255, 255)'
     else
-      fillStyle = 'rgb(200, 100, 0)'
+      fillStyle = 'rgb(50, 50, 50)'
     
     @ctx.fillStyle = fillStyle
     @ctx.fillRect x, y, @size, @size
@@ -76,7 +76,6 @@ class GameBoard
     for row in [0...@rows]
       for col in [0...@cols]
         @setCellState(row,col,newCellStates[row][col])
-
 
 # necessary for outside visibility 
 window.GameBoard = GameBoard

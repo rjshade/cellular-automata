@@ -37,7 +37,7 @@
     GameBoard.prototype.buildCanvas = function() {
       this.canvas = document.createElement('canvas');
       $(this.canvas).addClass('gameboard');
-      document.body.appendChild(this.canvas);
+      $('.cellular-automata').append(this.canvas);
       this.canvas.height = this.size * this.rows;
       this.canvas.width = this.size * this.cols;
       return this.ctx = this.canvas.getContext('2d');
@@ -75,12 +75,12 @@
       var fillStyle, x, y;
       x = col * this.size;
       y = row * this.size;
-      this.ctx.strokeStyle = 'rgba(100, 100, 100, 1.0)';
+      this.ctx.strokeStyle = 'rgba(50, 50, 50, 0.1)';
       this.ctx.strokeRect(x, y, this.size, this.size);
       if (this.cellStates[row][col] === 0) {
-        fillStyle = 'rgb(50, 50, 50)';
+        fillStyle = 'rgb(255, 255, 255)';
       } else {
-        fillStyle = 'rgb(200, 100, 0)';
+        fillStyle = 'rgb(50, 50, 50)';
       }
       this.ctx.fillStyle = fillStyle;
       return this.ctx.fillRect(x, y, this.size, this.size);
