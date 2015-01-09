@@ -1,12 +1,11 @@
 class Conway
   board: null
   tickLength: 500
-  ant: null
   rows: null
   cols: null
 
   constructor: (dims) ->
-    @board = new GameBoard(dims)
+    @board = new GameBoard(dims, "conway")
 
     # don't want to be calling every iteration
     @rows = @board.getNumRows()

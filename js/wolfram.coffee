@@ -27,7 +27,7 @@ class Wolfram
   rule: null
 
   constructor: (dims,rule = 30) ->
-    @board = new GameBoard(dims)
+    @board = new GameBoard(dims, "wolfram")
     @board.setCellState(0, Math.floor(@board.getNumCols() / 2), 1)
     @rule = new Rule(rule)
     @tick()

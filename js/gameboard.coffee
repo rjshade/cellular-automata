@@ -1,4 +1,5 @@
 class GameBoard
+  title: null
   size: null
   rows: null
   cols: null
@@ -6,10 +7,11 @@ class GameBoard
   canvas: null
   ctx: null
 
-  constructor: (dims = {rows: 20, cols: 20, size: 10}) ->
+  constructor: (dims = {rows: 20, cols: 20, size: 10}, title = "game") ->
     @rows = dims.rows
     @cols = dims.cols
     @size = dims.size
+    @title = title
     @buildCanvas()
     @createGrid()
     @drawGrid()
@@ -18,9 +20,10 @@ class GameBoard
     # create canvas container
     @canvas = document.createElement 'canvas'
     $(@canvas).addClass('gameboard')
+    $(@canvas).addClass(@title)
 
     # add it to the DOM
-    $('.cellular-automata').append( @canvas )
+    $('.cellular-automata').find('#board').append( @canvas )
 
     # set width and height according to cellsize
     @canvas.height = @size * @rows
